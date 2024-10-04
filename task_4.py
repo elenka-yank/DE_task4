@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 # функция принимает путь к файлу и возвращает список продаж
 def read_sales_data(file_path):
     # открытие и чтение файла
@@ -40,8 +42,21 @@ total_sales = total_sales_per_product(sales_data)
 total_sale_date = sales_over_time(sales_data)
 
 
+max_sales_pr = max(total_sales, key=total_sales.get)
+max_sales_dt = max(total_sale_date, key=total_sale_date.get)
+
 print (sales_data)
 print (total_sales)
 print(total_sale_date)
 
+plt.figure(figsize=(12, 7))
+plt.plot(total_sales.keys(), total_sales.values(), 'o-r', alpha=0.7, label="products", lw=5, mec='b', mew=2, ms=10)
+plt.plot(total_sale_date.keys(), total_sale_date.values(), 'v-.g', label="dates", mec='r', lw=2, mew=2, ms=12)
+plt.legend()
+plt.grid(True)
+plt.title(f"""Наибольшую выручку принес продукт:  {max_sales_pr} 
+Наибольшая сумма продаж была  {max_sales_dt}""", loc="left", pad=10)
+plt.show()
 
+print (f"Наибольшую выручку принес продукт:  {max_sales_pr}")
+print(f"Наибольшая сумма продаж была  {max_sales_dt}")
